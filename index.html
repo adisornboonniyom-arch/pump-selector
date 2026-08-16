@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0F262E">
+<title>เลือกปั๊มน้ำ Husqvarna — เครื่องมือหน้างาน</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0F262E; --ink2:#1B3A44; --pvc:#4FA8D8; --pvcd:#1E6E9E;
+  --paper:#EDF2F2; --card:#fff; --steel:#7C949B; --line:#D3DEDF;
+  --amber:#E0A03A; --red:#BE4E3C; --green:#2F8A62; --mint:#5BD6A0;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:'IBM Plex Sans Thai Looped','IBM Plex Sans Thai',system-ui,sans-serif;
+  font-size:15px;line-height:1.55;padding-bottom:env(safe-area-inset-bottom);
+}
+h1,h2,h3,.eyebrow,.tabbar button,.pick .id,.alt b{font-family:'IBM Plex Sans Thai',system-ui,sans-serif}
+.mono,.num,input[type=number]{font-family:'IBM Plex Mono','IBM Plex Sans Thai',monospace;font-variant-numeric:tabular-nums}
+.inner{max-width:1120px;margin:0 auto;padding:0 14px 70px}
+
+/* header + tabs */
+header{background:var(--ink);color:#fff;padding:14px 0 0;position:sticky;top:0;z-index:20}
+header .inner{padding-bottom:0}
+header h1{font-size:17px;font-weight:600;margin:0;letter-spacing:-.2px}
+header .sub{font-size:11.5px;color:#8FD0EA;margin:2px 0 10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.dot{width:6px;height:6px;border-radius:99px;background:var(--mint);display:inline-block;flex:none}
+.dot.off{background:var(--amber)}
+.tabbar{display:flex;gap:2px}
+.tabbar button{flex:1;background:none;border:none;border-bottom:3px solid transparent;color:#8FA9B1;
+  padding:9px 4px 8px;font-size:13.5px;cursor:pointer;font-weight:500}
+.tabbar button[aria-selected=true]{color:#fff;border-color:var(--pvc)}
+
+.cols{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+@media(min-width:920px){.cols{grid-template-columns:1fr 372px;align-items:start}
+  .right{position:sticky;top:104px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:14px}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--pvcd);margin-bottom:11px}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+label{display:block;font-size:12.5px;font-weight:500;color:var(--ink2);margin-bottom:4px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;
+  background:#fff;font-family:inherit;font-size:15px;color:var(--ink)}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--pvc);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{padding:7px 12px;border:1px solid var(--line);background:#fff;border-radius:99px;
+  font-family:inherit;font-size:13.5px;cursor:pointer;color:var(--ink2)}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:500}
+.hint{font-size:12px;color:var(--steel);margin:6px 0 0;line-height:1.5}
+.btn{background:var(--ink);color:#fff;border:none;border-radius:10px;padding:11px 15px;
+  font-family:inherit;font-size:14.5px;font-weight:500;cursor:pointer}
+.btn.ghost{background:none;color:var(--pvcd);border:1px dashed var(--line);width:100%;text-align:left}
+.btn.line{background:none;color:var(--ink2);border:1px solid var(--line)}
+.btn:active{transform:translateY(1px)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* gauge */
+.gauge{background:var(--ink);border-radius:14px;padding:13px 8px 6px;color:#fff}
+.gauge h3{margin:0 0 2px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#8FD0EA;
+  font-weight:600;padding-left:6px}
+.legend{display:flex;flex-wrap:wrap;gap:3px 12px;padding:6px 6px 2px}
+.legend div{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#C9DADE}
+.sw{width:9px;height:9px;border-radius:2px;flex:none}
+.total{display:flex;align-items:baseline;justify-content:space-between;padding:11px 8px 4px;
+  border-top:1px solid rgba(255,255,255,.16);margin-top:5px;gap:8px}
+.total b{font-size:27px;font-weight:600}
+.total span{font-size:11.5px;color:#8FD0EA}
+
+.pick{border:2px solid var(--ink);border-radius:14px;padding:15px;background:#fff;margin-bottom:13px}
+.pick .id{font-size:29px;font-weight:700;letter-spacing:-.5px;line-height:1.15}
+.bar{height:6px;background:#E3EAEB;border-radius:99px;overflow:hidden;margin:11px 0 5px}
+.bar i{display:block;height:100%;border-radius:99px}
+.alt{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13.5px;margin-bottom:7px}
+.alt b{font-size:15px}
+.warn{border-left:3px solid var(--amber);background:#FDF6E9;padding:9px 11px;border-radius:0 9px 9px 0;
+  font-size:13px;margin-bottom:7px;color:#6B4E15}
+.warn.bad{border-color:var(--red);background:#FBEDEA;color:#7A2E20}
+.fix{border:1px solid var(--line);border-left:3px solid var(--pvc);border-radius:0 11px 11px 0;
+  padding:11px 12px;margin-bottom:8px;background:#F7FBFC}
+.fix b{font-size:14px;display:block;margin-bottom:2px}
+.fix span{font-size:12.5px;color:var(--ink2)}
+.save{border:1px solid var(--green);background:#F1F9F5;color:#1E5C42;border-radius:11px;padding:9px 12px;
+  font-size:13px;margin-bottom:10px}
+.stat{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px solid #F0F4F4}
+.stat:last-child{border:none}
+.stat b{font-weight:600}
+.fitrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #F0F4F4}
+.fitrow:last-child{border:none}
+.fitrow em{font-style:normal;font-size:11px;color:var(--steel);display:block}
+.fitrow input{width:64px;text-align:center;padding:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--steel);font-weight:600}
+td.n{text-align:right;font-family:'IBM Plex Mono',monospace}
+.sitecard{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:9px;background:#fff}
+.sitecard .code{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--pvcd);font-weight:600}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:99px;background:#EDF2F2;color:var(--ink2)}
+.tag.win{background:#E4F3EC;color:#1E5C42}.tag.lose{background:#F7E7E4;color:#7A2E20}
+.foot{font-size:11.5px;color:var(--steel);line-height:1.6;margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+.hide{display:none!important}
+@media(prefers-reduced-motion:no-preference){rect,line{transition:all .3s cubic-bezier(.4,0,.2,1)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <h1>เลือกปั๊มน้ำ Husqvarna</h1>
+    <div class="sub">
+      <span><span class="dot" id="netdot"></span> <span id="nettext">พร้อมใช้งาน</span></span>
+      <span id="specage">สเปก —</span>
+    </div>
+    <nav class="tabbar" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="calc">คำนวณ</button>
+      <button role="tab" aria-selected="false" data-tab="sites">หน้างานที่บันทึก</button>
+      <button role="tab" aria-selected="false" data-tab="data">ข้อมูล &amp; สเปก</button>
+    </nav>
+  </div>
+</header>
+
+<div class="inner">
+
+<!-- ============ แท็บคำนวณ ============ -->
+<div id="tab-calc">
+<div class="cols">
+  <div>
+    <section class="card">
+      <div class="eyebrow">1 · ปลายทางจ่ายน้ำ</div>
+      <div class="chips" id="emitters"></div>
+      <div id="openBox" class="hide">
+        <label>ต้องการน้ำกี่ ลบ.ม. ต่อชั่วโมง</label>
+        <input type="number" id="directFlow" value="20" inputmode="decimal">
+      </div>
+      <div id="headBox" class="g3">
+        <div><label>เปิดพร้อมกันกี่หัว</label><input type="number" id="heads" value="60" inputmode="numeric"></div>
+        <div><label>น้ำต่อหัว (ล./ชม.)</label><input type="number" id="perHead" value="120" inputmode="decimal"></div>
+        <div><label>แรงดันที่หัว (ม.)</label><input type="number" id="needP" value="18" inputmode="decimal"></div>
+      </div>
+      <p class="hint" id="flowHint"></p>
+      <button class="btn ghost" id="areaToggle" style="margin-top:10px">ไม่รู้ว่าต้องใช้น้ำเท่าไร — คำนวณจากจำนวนไร่</button>
+      <div id="areaBox" class="hide" style="margin-top:11px;border-top:1px dashed var(--line);padding-top:12px">
+        <div class="g2">
+          <div><label>ปลูกอะไร</label><select id="crop"></select></div>
+          <div><label>กี่ไร่</label><input type="number" id="rai" value="10" inputmode="decimal"></div>
+          <div><label>รดวันละกี่ชั่วโมง</label><input type="number" id="waterHrs" value="3" inputmode="decimal"></div>
+          <div><label>รดกี่วันครั้ง</label><input type="number" id="everyDays" value="1" inputmode="numeric"></div>
+        </div>
+        <p class="hint" id="areaOut"></p>
+        <button class="btn" id="applyArea" style="margin-top:8px">ใช้ตัวเลขนี้</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="eyebrow">2 · ฝั่งดูด จากแหล่งน้ำถึงตัวปั๊ม</div>
+      <div class="g3">
+        <div><label>สูงจากผิวน้ำ (ม.)</label><input type="number" id="sLift" value="3" inputmode="decimal"></div>
+        <div><label>ท่อดูดยาว (ม.)</label><input type="number" id="sLen" value="8" inputmode="decimal"></div>
+        <div><label>ขนาดท่อดูด</label><select id="sPipe"></select></div>
+      </div>
+      <p class="hint">วัดจากผิวน้ำ<b>ต่ำสุดหน้าแล้ง</b> ไม่ใช่ระดับน้ำวันที่ไปดูงาน — ปั๊มทุกรุ่นดูดขึ้นได้ไม่เกิน 7 เมตร</p>
+    </section>
+
+    <section class="card">
+      <div class="eyebrow">3 · ฝั่งส่ง จากปั๊มถึงแปลง</div>
+      <div class="g2">
+        <div><label>ยกขึ้นสูงอีกกี่เมตร</label><input type="number" id="dRise" value="12" inputmode="decimal"></div>
+        <div><label>เดินท่อยาว (ม.)</label><input type="number" id="dLen" value="150" inputmode="decimal"></div>
+        <div><label>ขนาดท่อส่ง</label><select id="dPipe"></select></div>
+        <div><label>ชนิดท่อ</label><select id="kind"></select></div>
+      </div>
+      <p class="hint">ระยะยกคือความต่างระดับแนวดิ่งอย่างเดียว ส่วนความยาวท่อคือระยะเดินจริงรวมทางอ้อม</p>
+    </section>
+
+    <section class="card">
+      <div class="eyebrow">4 · ข้อต่อและอุปกรณ์</div>
+      <button class="btn ghost" id="fitToggle"></button>
+      <div id="fitBox" class="hide" style="margin-top:11px"></div>
+      <p class="hint" id="fitHint"></p>
+    </section>
+
+    <section class="card">
+      <div class="eyebrow">ตรวจทุกรุ่น</div>
+      <div id="allPumps"></div>
+    </section>
+  </div>
+
+  <div class="right">
+    <div class="gauge">
+      <h3>หัวน้ำรวมที่ปั๊มต้องเอาชนะ</h3>
+      <div id="gauge"></div>
+      <div class="legend" id="legend"></div>
+      <div class="total">
+        <span id="totalSub"></span>
+        <b class="num" id="totalVal">—</b>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div id="result"></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ แท็บหน้างาน ============ -->
+<div id="tab-sites" class="hide">
+  <section class="card" style="margin-top:16px">
+    <div class="eyebrow">บันทึกหน้างานปัจจุบัน</div>
+    <div class="g2">
+      <div><label>ตำบล / อำเภอ</label><input type="text" id="svArea" placeholder="เช่น ท่าศาลา นครศรีฯ"></div>
+      <div><label>ประเภทลูกค้า</label><select id="svType">
+        <option>เจ้าของสวน</option><option>เกษตรกรรายย่อย</option><option>ผู้รับเหมา</option>
+        <option>หน่วยงาน / อบต.</option><option>ร้านค้าช่วง</option><option>อื่น ๆ</option></select></div>
+      <div><label>ผลการคุย</label><select id="svOutcome">
+        <option>กำลังพิจารณา</option><option>ปิดการขาย</option><option>ไม่ซื้อ</option><option>ซื้อรุ่นอื่น</option></select></div>
+      <div><label>รุ่นที่ลูกค้าซื้อจริง</label><select id="svSold"></select></div>
+    </div>
+    <div style="margin-top:10px"><label>บันทึกเพิ่ม (ไม่ต้องใส่ชื่อหรือเบอร์)</label>
+      <textarea id="svNote" rows="2" placeholder="เช่น น้ำมีตะกอนมาก / ลูกค้าจะขยายแปลงปีหน้า"></textarea></div>
+    <div class="row" style="margin-top:11px">
+      <button class="btn" id="saveSite">บันทึกหน้างาน</button>
+      <button class="btn line" id="exportCsv">ส่งออกเป็น CSV</button>
+    </div>
+    <p class="hint">แอปนี้ไม่มีช่องกรอกชื่อและเบอร์โทรโดยตั้งใจ ข้อมูลที่บันทึกใช้วิเคราะห์สต็อกและปรับสูตรได้ครบโดยไม่ต้องเก็บข้อมูลส่วนบุคคล ถ้าจำเป็นต้องผูกกับลูกค้า ให้ใช้รหัสหน้างานไปอ้างอิงในระบบลงทะเบียนรับประกันที่มีการขอความยินยอมไว้แล้ว</p>
+  </section>
+  <div id="siteList"></div>
+</div>
+
+<!-- ============ แท็บข้อมูล ============ -->
+<div id="tab-data" class="hide">
+  <section class="card" style="margin-top:16px">
+    <div class="eyebrow">สเปกปั๊มที่ใช้คำนวณอยู่</div>
+    <div style="overflow-x:auto"><table id="specTable"></table></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="syncBtn">ซิงก์สเปกจาก Google Sheet</button>
+      <button class="btn line" id="resetSpec">กลับไปใช้สเปกที่ฝังมากับแอป</button>
+    </div>
+    <p class="hint" id="syncMsg"></p>
+  </section>
+  <section class="card">
+    <div class="eyebrow">ค่าอ้างอิงที่ใช้ในการคำนวณ</div>
+    <p class="hint" style="color:var(--ink2);font-size:13px">
+      แรงเสียดทานท่อคำนวณด้วยสูตร Hazen-Williams · ข้อต่อคิดด้วยวิธีความยาวเทียบเท่า (Le = ค่าคงที่ × เส้นผ่านศูนย์กลาง) ·
+      ความสามารถของปั๊มประมาณจากเส้นโค้งปั๊มหอยโข่งทั่วไป H = Hmax × (1 − (Q/Qmax)²) เพราะยังไม่มีกราฟจริงจากผู้ผลิต
+    </p>
+    <div style="overflow-x:auto;margin-top:8px"><table id="refTable"></table></div>
+  </section>
+  <section class="card">
+    <div class="eyebrow">ความแม่นยำ</div>
+    <p class="hint" style="color:var(--ink2);font-size:13px">
+      ผลลัพธ์เป็น<b>ค่าประมาณการเพื่อประกอบการคุยหน้างาน ไม่ใช่การรับประกันสมรรถนะ</b>
+      งานที่เฉียดขีดจำกัด (เผื่อต่ำกว่า 15%) ควรตรวจกับกราฟปั๊มจริงก่อนเสนอราคา
+      ค่าน้ำต่อหัวและแรงดันของหัวจ่ายเป็นค่ากลางของตลาด ถ้าร้านขายยี่ห้อใดเป็นหลัก ควรแก้เป็นตัวเลขจากฉลากจริง
+      ส่วนความต้องการน้ำของพืชเป็นค่าประมาณอย่างหยาบ ควรให้ฝ่ายวิชาการยืนยันก่อนใช้กับลูกค้า
+    </p>
+  </section>
+</div>
+
+<p class="foot" id="footer"></p>
+</div>
+
+<script>
+/* =========================================================
+   ข้อมูลตั้งต้น
+   ========================================================= */
+const SPEC_VERSION = "2026-08-16";
+const SYNC_URL = ""; // ← วาง URL ของ Google Apps Script Web App ตรงนี้
+
+const DEFAULT_PUMPS = [
+  {id:"W25P", qmax:8500,  hmax:32, port:25,  outPort:25,  fuel:"เบนซิน", tier:1, note:"2 จังหวะ 25.4cc หิ้วคนเดียว"},
+  {id:"W40P", qmax:12000, hmax:15, port:40,  outPort:40,  fuel:"เบนซิน", tier:2, note:"13 กก. เฮดต่ำสุดในไลน์"},
+  {id:"W50P", qmax:32000, hmax:28, port:50,  outPort:50,  fuel:"เบนซิน", tier:3, note:"196cc · 25 กก. · 2.8 บาร์"},
+  {id:"W65P", qmax:35000, hmax:55, port:63,  outPort:50,  fuel:"เบนซิน", tier:4, note:"212cc · 30 กก. · 5.5 บาร์ แรงดันสูง"},
+  {id:"W80P", qmax:54000, hmax:28, port:80,  outPort:80,  fuel:"เบนซิน", tier:5, note:"~28 กก. เน้นปริมาณ ไม่เน้นส่งสูง"},
+  {id:"W100D",qmax:92000, hmax:25, port:100, outPort:100, fuel:"ดีเซล",  tier:6, note:"418cc ปริมาณสูงสุด งานพื้นราบ"},
+  {id:"W80DE",qmax:45000, hmax:80, port:80,  outPort:80,  fuel:"ดีเซล",  tier:7, note:"498cc · 8 บาร์ · 87 กก. ตั้งประจำที่"},
+];
+let PUMPS = DEFAULT_PUMPS.slice();
+let specDate = SPEC_VERSION, specSource = "ฝังมากับแอป";
+
+const PIPES=[
+  {label:'3/4"',id:21.4},{label:'1"',id:28.6},{label:'1 1/4"',id:36},{label:'1 1/2"',id:41.6},
+  {label:'2"',id:52.4},{label:'2 1/2"',id:66.4},{label:'3"',id:78.6},{label:'4"',id:101},{label:'6"',id:146}];
+const KINDS=[{k:"pvc",n:"PVC ฟ้า",c:150},{k:"pe",n:"PE / HDPE",c:150},{k:"layflat",n:"สายผ้าใบ",c:140},{k:"steel",n:"เหล็กอาบสังกะสี",c:120}];
+const EMITTERS=[
+  {k:"open",n:"ปล่อยปลายท่อ / สูบระบาย",p:0,q:null},
+  {k:"hose",n:"สายยางรดน้ำ",p:15,q:1200},
+  {k:"drip",n:"น้ำหยด",p:12,q:6},
+  {k:"mini",n:"มินิสปริงเกลอร์",p:18,q:120},
+  {k:"impact",n:"สปริงเกลอร์ใบหมุน",p:25,q:900},
+  {k:"gun",n:"สปริงเกลอร์ปืนใหญ่",p:40,q:8000},
+  {k:"mist",n:"หัวพ่นหมอก",p:20,q:40}];
+const SFIT=[{k:"foot",n:"ฟุตวาล์ว + หัวกะโหลก",ld:420,d:1},{k:"sElbow",n:"ข้องอ 90° ฝั่งดูด",ld:30,d:1}];
+const DFIT=[{k:"elbow90",n:"ข้องอ 90°",ld:30,d:4},{k:"elbow45",n:"ข้องอ 45°",ld:16,d:0},
+  {k:"teeRun",n:"สามทาง (ผ่านตรง)",ld:20,d:0},{k:"teeBranch",n:"สามทาง (แยกข้าง)",ld:60,d:0},
+  {k:"valve",n:"ประตูน้ำ / บอลวาล์ว",ld:8,d:1},{k:"check",n:"เช็ควาล์วกันน้ำย้อน",ld:100,d:0},
+  {k:"reducer",n:"ข้อลด / ข้อเพิ่ม",ld:15,d:1}];
+/* ค่าประมาณอย่างหยาบ — perTree ล./ต้น/วัน, perRai ลบ.ม./ไร่/วัน */
+const CROPS=[
+  {n:"ทุเรียน",trees:20,perTree:150},{n:"มะม่วง",trees:25,perTree:80},
+  {n:"ลำไย",trees:20,perTree:100},{n:"มะพร้าว",trees:25,perTree:100},
+  {n:"ปาล์มน้ำมัน",trees:22,perTree:150},{n:"ยางพารา",trees:76,perTree:30},
+  {n:"ผักแปลง",perRai:8},{n:"หญ้าสนาม",perRai:9.6},{n:"นาข้าว (เติมน้ำ)",perRai:16}];
+
+/* =========================================================
+   ตัวเก็บข้อมูล — ใช้ได้ทั้งในหน้าตัวอย่างและตอน deploy จริง
+   ========================================================= */
+const store = (()=>{
+  const mem={};
+  const hasWin = typeof window!=="undefined" && window.storage && typeof window.storage.get==="function";
+  let hasLS=false; try{localStorage.setItem("__t","1");localStorage.removeItem("__t");hasLS=true;}catch(e){}
+  return {
+    async get(k){
+      try{ if(hasWin){const r=await window.storage.get(k); return r?r.value:null;} }catch(e){}
+      if(hasLS) return localStorage.getItem(k);
+      return mem[k]??null;
+    },
+    async set(k,v){
+      try{ if(hasWin){await window.storage.set(k,v); return;} }catch(e){}
+      if(hasLS){try{localStorage.setItem(k,v);return;}catch(e){}}
+      mem[k]=v;
+    }
+  };
+})();
+
+/* =========================================================
+   สถานะ
+   ========================================================= */
+const S={emitter:"mini",heads:60,perHead:120,needP:18,directFlow:20,
+  sLift:3,sLen:8,sPipe:4,dRise:12,dLen:150,dPipe:4,kind:"pvc",
+  sFit:Object.fromEntries(SFIT.map(f=>[f.k,f.d])),
+  dFit:Object.fromEntries(DFIT.map(f=>[f.k,f.d]))};
+let sites=[], lastResult=null;
+
+const $=id=>document.getElementById(id);
+const num=v=>{const x=parseFloat(v);return isNaN(x)?0:x;};
+const f1=v=>(Math.round(v*10)/10).toLocaleString("th-TH");
+
+/* =========================================================
+   วิศวกรรม
+   ========================================================= */
+function friction(q,L,idmm,c){ // q ลบ.ม./ชม.
+  if(q<=0||L<=0||idmm<=0) return 0;
+  return 10.67*L*Math.pow(q/3600,1.852)/(Math.pow(c,1.852)*Math.pow(idmm/1000,4.87));
+}
+function vel(q,idmm){ if(q<=0||idmm<=0) return 0;
+  return (q/3600)/(Math.PI*Math.pow(idmm/1000,2)/4); }
+
+function compute(s){
+  const flow = s.emitter==="open" ? num(s.directFlow) : num(s.heads)*num(s.perHead)/1000;
+  const c = KINDS.find(k=>k.k===s.kind).c;
+  const sID=PIPES[s.sPipe].id, dID=PIPES[s.dPipe].id;
+  const sEqv = SFIT.reduce((a,f)=>a+num(s.sFit[f.k])*f.ld*sID/1000,0);
+  const dEqv = DFIT.reduce((a,f)=>a+num(s.dFit[f.k])*f.ld*dID/1000,0);
+  const sPipeLoss=friction(flow,num(s.sLen),sID,c), sFitLoss=friction(flow,sEqv,sID,c);
+  const dPipeLoss=friction(flow,num(s.dLen),dID,c), dFitLoss=friction(flow,dEqv,dID,c);
+  const pipeLoss=sPipeLoss+dPipeLoss, fitLoss=sFitLoss+dFitLoss;
+  const lift=num(s.sLift), rise=num(s.dRise), resid=num(s.needP);
+  const tdh=lift+rise+pipeLoss+fitLoss+resid;
+  const suctionTotal=lift+sPipeLoss+sFitLoss;
+
+  const results=PUMPS.map(p=>{
+    const qmax=p.qmax/1000, ratio=qmax>0?flow/qmax:9;
+    const avail = ratio>=1 ? 0 : p.hmax*(1-ratio*ratio);
+    const pass = avail>=tdh && ratio<1 && flow>0 && suctionTotal<=7;
+    const margin = tdh>0 ? (avail-tdh)/tdh*100 : 0;
+    let why=""; if(ratio>=1) why="ปริมาณน้ำเกินกำลัง";
+    else if(suctionTotal>7) why="ฝั่งดูดเกิน 7 ม.";
+    else if(avail<tdh) why=`ส่งได้ ${f1(avail)} ม. ไม่ถึง ${f1(tdh)} ม.`;
+    return {...p,avail,pass,margin,ratio,why};
+  });
+  const passing=results.filter(x=>x.pass).sort((a,b)=>a.tier-b.tier);
+  return {flow,tdh,lift,rise,pipeLoss,fitLoss,resid,sEqv,dEqv,suctionTotal,
+    sV:vel(flow,sID),dV:vel(flow,dID),results,passing,best:passing[0]||null,
+    alts:passing.slice(1,3),sID,dID};
+}
+
+/* ทางแก้เมื่อไม่ผ่าน หรือเผื่อน้อย + ทางเลือกที่ถูกกว่า */
+function suggestions(s,base){
+  const out=[];
+  // ขยายท่อส่ง
+  for(let i=s.dPipe+1;i<PIPES.length;i++){
+    const r=compute({...s,dPipe:i});
+    if(r.best && (!base.best || r.best.tier<=base.best.tier)){
+      out.push({t:"ขยายท่อส่งเป็น "+PIPES[i].label,
+        d:`หัวน้ำรวมลดเหลือ ${f1(r.tdh)} ม. ใช้ ${r.best.id} ได้ เผื่อ ${Math.round(r.best.margin)}%`+
+          (base.best&&r.best.tier<base.best.tier?` — ประหยัดกว่าการอัปเป็น ${base.best.id}`:"")});
+      break;}
+  }
+  // ขยายท่อดูด
+  if(base.suctionTotal>7||base.sV>1.8){
+    for(let i=s.sPipe+1;i<PIPES.length;i++){
+      const r=compute({...s,sPipe:i});
+      if(r.suctionTotal<=7&&r.sV<=1.8){
+        out.push({t:"ขยายท่อดูดเป็น "+PIPES[i].label,
+          d:`ฝั่งดูดลดเหลือ ${f1(r.suctionTotal)} ม. น้ำวิ่ง ${f1(r.sV)} ม./วิ`});break;}
+    }
+  }
+  // ย้ายปั๊มลงใกล้น้ำ
+  if(base.suctionTotal>7&&num(s.sLift)>0){
+    const need=Math.max(0,num(s.sLift)-(base.suctionTotal-6.5));
+    out.push({t:"ย้ายปั๊มลงใกล้ผิวน้ำ",
+      d:`ตั้งให้สูงจากผิวน้ำไม่เกิน ${f1(need)} ม. จึงจะดูดขึ้นแน่นอนในหน้าแล้ง`});
+  }
+  // แบ่งโซน
+  if(s.emitter!=="open"){
+    for(const z of [2,3,4,6]){
+      const r=compute({...s,heads:num(s.heads)/z});
+      if(r.best&&(!base.best||r.best.tier<base.best.tier)){
+        out.push({t:`แบ่งรดเป็น ${z} โซน`,
+          d:`เปิดครั้งละ ${Math.ceil(num(s.heads)/z)} หัว ใช้ ${r.best.id} ได้ แต่เวลารดเพิ่มเป็น ${z} เท่า`});break;}
+    }
+  }
+  return out;
+}
+
+/* =========================================================
+   วาดผลลัพธ์
+   ========================================================= */
+function drawGauge(r){
+  const segs=[
+    {l:"ระยะดูดขึ้นจากผิวน้ำ",v:r.lift,c:"#7C949B"},
+    {l:"ระยะยกส่งขึ้นที่สูง",v:r.rise,c:"#1E6E9E"},
+    {l:"แรงเสียดทานท่อตรง",v:r.pipeLoss,c:"#4FA8D8"},
+    {l:"แรงเสียดทานข้อต่อ",v:r.fitLoss,c:"#8FD0EA"},
+    {l:"แรงดันที่หัวจ่าย",v:r.resid,c:"#E0A03A"}].filter(x=>x.v>0.05);
+  const GH=380,GY=22,GW=92,GX=30;
+  const top=Math.max(r.tdh*1.18,...r.results.map(p=>p.avail),25)||25;
+  const y=m=>GY+GH-(m/top)*GH;
+  let sv=`<svg viewBox="0 0 340 ${GH+50}" width="100%" role="img" aria-label="หัวน้ำรวม ${f1(r.tdh)} เมตร">`;
+  [0,.25,.5,.75,1].forEach(t=>{const m=top*t;
+    sv+=`<line x1="${GX-6}" y1="${y(m)}" x2="${GX}" y2="${y(m)}" stroke="#40606B"/>
+    <text x="${GX-9}" y="${y(m)+4}" text-anchor="end" font-size="10" fill="#7E9AA3" font-family="IBM Plex Mono">${Math.round(m)}</text>`;});
+  sv+=`<text x="${GX-9}" y="${GY-7}" text-anchor="end" font-size="9" fill="#5E7E88" font-family="IBM Plex Mono">ม.</text>`;
+  let acc=0;
+  segs.forEach(s=>{const y0=y(acc),y1=y(acc+s.v);acc+=s.v;const h=Math.max(y0-y1,1.5);
+    sv+=`<rect x="${GX}" y="${y1}" width="${GW}" height="${h}" fill="${s.c}"/>`;
+    if(h>15) sv+=`<text x="${GX+GW/2}" y="${y1+h/2+4}" text-anchor="middle" font-size="11" font-weight="600"
+      fill="${(s.c==="#8FD0EA"||s.c==="#E0A03A")?"#0F262E":"#fff"}" font-family="IBM Plex Mono">${f1(s.v)}</text>`;});
+  if(r.tdh>0) sv+=`<rect x="${GX}" y="${y(r.tdh)}" width="${GW}" height="${Math.max(GY+GH-y(r.tdh),2)}" fill="none" stroke="#fff" stroke-width="1.5"/>`;
+  const lines=r.results.filter(p=>p.avail>0.5&&p.avail<=top).sort((a,b)=>a.avail-b.avail);
+  lines.forEach((p,i)=>{const yy=y(p.avail);
+    const shift=(i>0&&Math.abs(y(lines[i-1].avail)-yy)<13)?12:0;
+    sv+=`<line x1="${GX}" y1="${yy}" x2="${GX+GW+118}" y2="${yy}" stroke="${p.pass?"#5BD6A0":"#5E7E88"}"
+      stroke-width="1" stroke-dasharray="${p.pass?"none":"3 3"}"/>
+      <text x="${GX+GW+8}" y="${yy-3-shift}" font-size="11.5" fill="${p.pass?"#5BD6A0":"#7E9AA3"}"
+      font-family="IBM Plex Sans Thai" font-weight="${p.pass?600:400}">${p.id} · ${f1(p.avail)} ม.</text>`;});
+  sv+="</svg>";
+  $("gauge").innerHTML=sv;
+  $("legend").innerHTML=segs.map(s=>`<div><span class="sw" style="background:${s.c}"></span>${s.l}</div>`).join("");
+  $("totalSub").textContent=`รวมทั้งหมด · ต้องการ ${f1(r.flow)} ลบ.ม./ชม.`;
+  $("totalVal").innerHTML=`${f1(r.tdh)} <span style="font-size:14px">ม.</span>`;
+}
+
+function render(){
+  const r=compute(S); lastResult=r;
+  drawGauge(r);
+
+  // hint ปริมาณน้ำ
+  $("flowHint").innerHTML = S.emitter==="open"
+    ? "ถ้าเป็นงานสูบระบาย ให้เอาปริมาณน้ำทั้งหมดหารด้วยจำนวนชั่วโมงที่อยากให้เสร็จ"
+    : `ค่าเริ่มต้นเป็นค่ากลางของหัวจ่ายชนิดนั้น ถ้ามีสเปกหัวจริงให้แก้ตามฉลาก · แรงดัน 10 เมตร = 1 บาร์ · รวมแล้ว <b>${f1(r.flow)} ลบ.ม./ชม.</b> (${f1(r.flow*1000/60)} ล./นาที)`;
+
+  // ข้อต่อ
+  $("fitToggle").innerHTML = $("fitBox").classList.contains("hide")
+    ? `ใช้ค่าติดตั้งทั่วไป — ฟุตวาล์ว ${S.sFit.foot}, ข้องอ ${num(S.sFit.sElbow)+num(S.dFit.elbow90)}, ประตูน้ำ ${S.dFit.valve}<br><span style="color:var(--steel);font-size:12px">กินหัวน้ำอยู่ ${f1(r.fitLoss)} เมตร · กดเพื่อแก้ให้ตรงหน้างาน</span>`
+    : "ย่อเก็บ";
+  $("fitHint").innerHTML = `ข้อต่อทั้งหมดเทียบเท่าท่อตรงเพิ่มอีก ${f1(r.sEqv+r.dEqv)} เมตร คิดเป็นหัวน้ำ ${f1(r.fitLoss)} เมตร · ฟุตวาล์วหัวกะโหลกคือตัวกินมากที่สุดเสมอ`;
+
+  // รายการปั๊มทั้งหมด
+  $("allPumps").innerHTML = r.results.slice().sort((a,b)=>a.tier-b.tier).map(p=>`
+    <div class="alt" style="opacity:${p.pass?1:.55}">
+      <div><b>${p.id}</b> <span style="color:var(--steel);font-size:12px">${p.fuel} · ${p.note}</span></div>
+      <div style="text-align:right;flex:none">${p.pass
+        ? `<span class="mono" style="color:var(--green);font-weight:600">ผ่าน</span><div style="font-size:11px;color:var(--steel)">เผื่อ ${Math.round(p.margin)}%</div>`
+        : `<span style="color:var(--red);font-size:12.5px">ไม่ผ่าน</span><div style="font-size:11px;color:var(--steel)">${p.why}</div>`}</div>
+    </div>`).join("");
+
+  // คำเตือน
+  const w=[];
+  if(r.suctionTotal>7) w.push(["bad",`ฝั่งดูดรวม ${f1(r.suctionTotal)} เมตร เกิน 7 เมตร — ปั๊มจะดูดน้ำไม่ขึ้น`]);
+  if(r.sV>1.8&&r.flow>0) w.push(["",`น้ำในท่อดูดวิ่ง ${f1(r.sV)} ม./วิ เร็วเกินไป (ควรต่ำกว่า 1.8) ขยายท่อดูดขึ้นอีกขนาด`]);
+  if(r.dV>3&&r.flow>0) w.push(["",`น้ำในท่อส่งวิ่ง ${f1(r.dV)} ม./วิ เร็วเกินไป (ควรต่ำกว่า 3) แรงเสียดทานจะกินหัวน้ำมาก`]);
+  if(r.best&&r.dID<r.best.outPort) w.push(["",`ท่อส่งเล็กกว่ารูออกของ ${r.best.id} (${r.best.outPort} มม.) — คอขวดตรงนี้ทำให้ปั๊มทำงานไม่เต็มที่`]);
+  if(r.fitLoss>r.pipeLoss&&r.fitLoss>3) w.push(["",`ข้อต่อกินหัวน้ำ ${f1(r.fitLoss)} เมตร มากกว่าท่อตรงทั้งเส้น — ลดข้องอ หรือใช้ 45° แทน 90°`]);
+  if(r.flow<=0) w.push(["bad","ยังไม่ได้ใส่ปริมาณน้ำที่ต้องการ"]);
+  if(r.best&&r.best.margin<15&&r.best.margin>=0) w.push(["",`เผื่อไว้แค่ ${Math.round(r.best.margin)}% ถือว่าเฉียด ควรตรวจกับกราฟปั๊มจริงก่อนเสนอราคา`]);
+
+  const fixes = (!r.best || (r.best&&r.best.margin<15)) ? suggestions(S,r) : [];
+
+  let html="";
+  if(r.best){
+    const use=Math.min(100,r.tdh/r.best.avail*100);
+    html+=`<div class="pick">
+      <div style="font-size:10.5px;letter-spacing:1.3px;color:var(--pvcd);font-weight:600">รุ่นที่แนะนำ</div>
+      <div class="id">${r.best.id}</div>
+      <div style="font-size:13px;color:var(--ink2)">${r.best.fuel} · ${r.best.note}</div>
+      <div class="bar"><i style="width:${use}%;background:${r.best.margin<15?"var(--amber)":"var(--green)"}"></i></div>
+      <div style="font-size:12.5px;color:var(--ink2)">ใช้กำลังไป ${Math.round(use)}% ของที่ทำได้ที่ปริมาณน้ำนี้ · เหลือเผื่อ ${Math.round(r.best.margin)}%</div>
+    </div>`;
+  }else{
+    html+=`<div class="warn bad" style="margin-bottom:13px"><b>ไม่มีรุ่นไหนรับหน้างานนี้ได้</b><br>ดูทางแก้ด้านล่าง</div>`;
+  }
+  if(fixes.length){
+    html+=`<div class="card"><div class="eyebrow">ทางแก้ที่คำนวณแล้วว่าได้ผล</div>`+
+      fixes.map(f=>`<div class="fix"><b>${f.t}</b><span>${f.d}</span></div>`).join("")+
+      `<p class="hint">เทียบต้นทุนสองทางนี้ให้ลูกค้าฟังด้วย — หลายหน้างานการขยายท่อถูกกว่าการอัปรุ่นปั๊ม</p></div>`;
+  }
+  if(r.alts.length){
+    html+=`<div class="card"><div class="eyebrow">รุ่นสำรองที่ก็ผ่าน</div>`+
+      r.alts.map(p=>`<div class="alt"><div><b>${p.id}</b> <span style="color:var(--steel);font-size:12px">${p.note}</span></div>
+      <span class="mono" style="color:var(--green);flex:none">เผื่อ ${Math.round(p.margin)}%</span></div>`).join("")+`</div>`;
+  }
+  if(w.length) html+=`<div style="margin-bottom:13px">`+w.map(x=>`<div class="warn ${x[0]}">${x[1]}</div>`).join("")+`</div>`;
+
+  html+=`<div class="card"><div class="eyebrow">ตัวเลขหน้างาน</div>
+    <div class="stat"><span>ปริมาณน้ำที่ต้องการ</span><b class="mono">${f1(r.flow)} ลบ.ม./ชม.</b></div>
+    <div class="stat"><span>ยกจริง (ดูด + ส่ง)</span><b class="mono">${f1(r.lift+r.rise)} ม.</b></div>
+    <div class="stat"><span>แรงเสียดทานท่อ + ข้อต่อ</span><b class="mono">${f1(r.pipeLoss+r.fitLoss)} ม.</b></div>
+    <div class="stat"><span>ความเร็วน้ำท่อดูด</span><b class="mono" style="color:${r.sV>1.8?"var(--red)":"inherit"}">${f1(r.sV)} ม./วิ</b></div>
+    <div class="stat"><span>ความเร็วน้ำท่อส่ง</span><b class="mono" style="color:${r.dV>3?"var(--red)":"inherit"}">${f1(r.dV)} ม./วิ</b></div>
+    <div class="stat"><span>ฝั่งดูดรวม (ไม่เกิน 7)</span><b class="mono" style="color:${r.suctionTotal>7?"var(--red)":"inherit"}">${f1(r.suctionTotal)} ม.</b></div>
+  </div>`;
+
+  if(r.best&&r.flow>0){
+    const smaller=r.results.filter(x=>x.tier<r.best.tier&&!x.pass).sort((a,b)=>b.tier-a.tier)[0];
+    const script=`หน้างานนี้ต้องส่งน้ำ ${f1(r.flow)} ลบ.ม./ชม. ที่หัวน้ำรวม ${f1(r.tdh)} เมตรครับ `+
+      `(ยกจริง ${f1(r.lift+r.rise)} ม. + แรงเสียดทานท่อกับข้อต่อ ${f1(r.pipeLoss+r.fitLoss)} ม.`+
+      (r.resid>0?` + แรงดันที่หัวจ่ายต้องการ ${f1(r.resid)} ม.`:"")+") "+
+      `ผมแนะนำ ${r.best.id} ครับ ที่ปริมาณน้ำเท่านี้มันส่งได้ประมาณ ${f1(r.best.avail)} เมตร เหลือเผื่อไว้ ${Math.round(r.best.margin)}%`+
+      (smaller?` ส่วน ${smaller.id} ที่ราคาถูกกว่า ${smaller.why} ครับ จะไม่พอ`:"");
+    html+=`<div class="card"><div class="eyebrow">พูดกับลูกค้าแบบนี้</div>
+      <textarea readonly rows="5" onfocus="this.select()">${script}</textarea>
+      <p class="hint">แตะเพื่อเลือกทั้งหมด แล้วคัดลอกไปวางในไลน์ได้เลย</p></div>`;
+  }
+  $("result").innerHTML=html;
+  updateArea();
+}
+
+/* =========================================================
+   ตัวช่วยคำนวณจากไร่
+   ========================================================= */
+function areaFlow(){
+  const c=CROPS[+$("crop").value], rai=num($("rai").value),
+        hrs=Math.max(num($("waterHrs").value),0.1), every=Math.max(num($("everyDays").value),1);
+  const perDay = c.perRai ? c.perRai*rai : c.trees*rai*c.perTree/1000; // ลบ.ม. ต่อรอบ
+  return {perDay, flow: perDay*every/hrs, c, rai, hrs, every};
+}
+function updateArea(){
+  if($("areaBox").classList.contains("hide")) return;
+  const a=areaFlow();
+  $("areaOut").innerHTML=`${a.c.n} ${f1(a.rai)} ไร่ ใช้น้ำราว <b>${f1(a.perDay*a.every)} ลบ.ม. ต่อรอบ</b> `+
+    `รดให้เสร็จใน ${f1(a.hrs)} ชม. ต้องส่ง <b>${f1(a.flow)} ลบ.ม./ชม.</b> — เป็นค่าประมาณอย่างหยาบ ปรับได้ตามสภาพจริง`;
+}
+
+/* =========================================================
+   หน้างานที่บันทึก
+   ========================================================= */
+function siteCode(){
+  const d=new Date(); const y=d.getFullYear()+543;
+  return `SITE-${y}-${String(Date.now()).slice(-5)}`;
+}
+async function loadSites(){
+  const raw=await store.get("pump_sites");
+  try{sites=raw?JSON.parse(raw):[];}catch(e){sites=[];}
+  renderSites();
+}
+async function saveSites(){ await store.set("pump_sites",JSON.stringify(sites)); }
+function renderSites(){
+  if(!sites.length){$("siteList").innerHTML=`<div class="card" style="text-align:center;color:var(--steel)">ยังไม่มีหน้างานที่บันทึก<br><span style="font-size:12.5px">คำนวณเสร็จแล้วกดบันทึกจากด้านบน</span></div>`;return;}
+  $("siteList").innerHTML=sites.slice().reverse().map(s=>`
+    <div class="sitecard">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:start">
+        <div><span class="code">${s.code}</span>
+          <div style="font-weight:500">${s.area||"ไม่ระบุพื้นที่"} · ${s.type}</div></div>
+        <span class="tag ${s.outcome==="ปิดการขาย"?"win":(s.outcome==="ไม่ซื้อ"?"lose":"")}">${s.outcome}</span>
+      </div>
+      <div style="font-size:12.5px;color:var(--ink2);margin-top:6px">
+        ${f1(s.flow)} ลบ.ม./ชม. · หัวน้ำรวม ${f1(s.tdh)} ม. · แนะนำ <b>${s.rec||"—"}</b>${s.sold&&s.sold!==s.rec?` · ซื้อจริง <b>${s.sold}</b>`:""}
+      </div>
+      ${s.note?`<div style="font-size:12.5px;color:var(--steel);margin-top:4px">${s.note}</div>`:""}
+      <div style="margin-top:8px;display:flex;gap:7px">
+        <button class="btn line" style="padding:6px 11px;font-size:12.5px" onclick="loadSite('${s.code}')">เรียกกลับมาคำนวณ</button>
+        <button class="btn line" style="padding:6px 11px;font-size:12.5px" onclick="delSite('${s.code}')">ลบ</button>
+      </div>
+    </div>`).join("");
+}
+window.loadSite=code=>{
+  const s=sites.find(x=>x.code===code); if(!s) return;
+  Object.assign(S,s.state); syncInputs(); render(); switchTab("calc"); window.scrollTo(0,0);
+};
+window.delSite=async code=>{
+  if(!confirm("ลบหน้างานนี้?")) return;
+  sites=sites.filter(x=>x.code!==code); await saveSites(); renderSites();
+};
+
+/* =========================================================
+   ผูก UI
+   ========================================================= */
+function fill(sel,arr,val,lab){ const e=$(sel); e.innerHTML=arr.map((x,i)=>`<option value="${val(x,i)}">${lab(x)}</option>`).join(""); }
+function syncInputs(){
+  ["heads","perHead","needP","directFlow","sLift","sLen","dRise","dLen"].forEach(k=>$(k).value=S[k]);
+  $("sPipe").value=S.sPipe; $("dPipe").value=S.dPipe; $("kind").value=S.kind;
+  document.querySelectorAll("#emitters .chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===S.emitter));
+  $("openBox").classList.toggle("hide",S.emitter!=="open");
+  $("headBox").classList.toggle("hide",S.emitter==="open");
+  buildFitBox();
+}
+function buildFitBox(){
+  const rowsS=SFIT.map(f=>`<div class="fitrow"><span>${f.n}<em>เท่ากับท่อตรง ${f1(f.ld*PIPES[S.sPipe].id/1000)} ม. ต่อชิ้น</em></span>
+    <input type="number" min="0" inputmode="numeric" data-side="s" data-k="${f.k}" value="${S.sFit[f.k]}"></div>`).join("");
+  const rowsD=DFIT.map(f=>`<div class="fitrow"><span>${f.n}<em>เท่ากับท่อตรง ${f1(f.ld*PIPES[S.dPipe].id/1000)} ม. ต่อชิ้น</em></span>
+    <input type="number" min="0" inputmode="numeric" data-side="d" data-k="${f.k}" value="${S.dFit[f.k]}"></div>`).join("");
+  $("fitBox").innerHTML=rowsS+rowsD;
+  $("fitBox").querySelectorAll("input").forEach(i=>i.oninput=()=>{
+    (i.dataset.side==="s"?S.sFit:S.dFit)[i.dataset.k]=i.value; render();});
+}
+function switchTab(t){
+  document.querySelectorAll(".tabbar button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
+  ["calc","sites","data"].forEach(x=>$("tab-"+x).classList.toggle("hide",x!==t));
+}
+
+function specTable(){
+  $("specTable").innerHTML=`<tr><th>รุ่น</th><th class="n">น้ำสูงสุด</th><th class="n">ส่งสูงสุด</th><th class="n">ท่อ</th><th>เชื้อเพลิง</th></tr>`+
+    PUMPS.slice().sort((a,b)=>a.tier-b.tier).map(p=>`<tr><td><b>${p.id}</b><div style="font-size:11.5px;color:var(--steel)">${p.note}</div></td>
+    <td class="n">${p.qmax.toLocaleString("th-TH")} ล./ชม.</td><td class="n">${p.hmax} ม.</td>
+    <td class="n">${p.port}${p.outPort!==p.port?"/"+p.outPort:""} มม.</td><td>${p.fuel}</td></tr>`).join("");
+  $("refTable").innerHTML=`<tr><th>หัวจ่าย</th><th class="n">แรงดันที่ต้องการ</th><th class="n">น้ำต่อหัว</th></tr>`+
+    EMITTERS.filter(e=>e.q).map(e=>`<tr><td>${e.n}</td><td class="n">${e.p} ม.</td><td class="n">${e.q} ล./ชม.</td></tr>`).join("")+
+    `<tr><th>ข้อต่อ</th><th class="n">ยาวเทียบเท่า</th><th></th></tr>`+
+    SFIT.concat(DFIT).map(f=>`<tr><td>${f.n}</td><td class="n">${f.ld} × ø</td><td></td></tr>`).join("");
+  const days=Math.round((Date.now()-new Date(specDate).getTime())/86400000);
+  $("specage").innerHTML=`สเปกอัปเดต ${specDate} (${days} วัน)`+(days>30?` <span style="color:var(--amber)">· ควรซิงก์ใหม่</span>`:"");
+  $("footer").innerHTML=`สเปกปั๊มอ้างอิงจากข้อมูลผู้ผลิตและตัวแทนจำหน่าย ที่มา: ${specSource} · อัปเดต ${specDate} ·
+    ผลลัพธ์เป็นค่าประมาณการเพื่อประกอบการคุยหน้างาน ไม่ใช่การรับประกันสมรรถนะ`;
+}
+
+/* ซิงก์สเปก */
+async function syncSpec(){
+  if(!SYNC_URL){ $("syncMsg").textContent="ยังไม่ได้ตั้งค่า SYNC_URL ในไฟล์ index.html — เปิดไฟล์แล้ววาง URL ของ Apps Script ที่บรรทัด SYNC_URL"; return; }
+  $("syncMsg").textContent="กำลังซิงก์…";
+  try{
+    const res=await fetch(SYNC_URL,{cache:"no-store"});
+    const j=await res.json();
+    if(!Array.isArray(j.pumps)||!j.pumps.length) throw new Error("รูปแบบข้อมูลไม่ถูกต้อง");
+    PUMPS=j.pumps; specDate=j.updated||new Date().toISOString().slice(0,10); specSource="Google Sheet";
+    await store.set("pump_spec",JSON.stringify({pumps:PUMPS,updated:specDate}));
+    specTable(); render(); $("syncMsg").textContent=`ซิงก์แล้ว ${PUMPS.length} รุ่น เมื่อ ${specDate}`;
+  }catch(e){ $("syncMsg").textContent="ซิงก์ไม่สำเร็จ — ยังใช้สเปกเดิมต่อได้ตามปกติ ("+e.message+")"; }
+}
+
+/* =========================================================
+   เริ่มทำงาน
+   ========================================================= */
+(async function init(){
+  $("emitters").innerHTML=EMITTERS.map(e=>`<button class="chip" data-k="${e.k}">${e.n}</button>`).join("");
+  $("emitters").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
+    S.emitter=b.dataset.k;
+    const e=EMITTERS.find(x=>x.k===b.dataset.k);
+    S.needP=e.p; if(e.q!==null) S.perHead=e.q;
+    syncInputs(); render();});
+
+  fill("sPipe",PIPES,(p,i)=>i,p=>p.label);
+  fill("dPipe",PIPES,(p,i)=>i,p=>p.label);
+  fill("kind",KINDS,k=>k.k,k=>k.n);
+  fill("crop",CROPS,(c,i)=>i,c=>c.n);
+  fill("svSold",[{n:"— ยังไม่ซื้อ —"}].concat(DEFAULT_PUMPS.map(p=>({n:p.id}))),c=>c.n,c=>c.n);
+
+  ["heads","perHead","needP","directFlow","sLift","sLen","dRise","dLen"].forEach(k=>
+    $(k).oninput=()=>{S[k]=$(k).value;render();});
+  ["sPipe","dPipe"].forEach(k=>$(k).onchange=()=>{S[k]=+$(k).value;buildFitBox();render();});
+  $("kind").onchange=()=>{S.kind=$("kind").value;render();};
+  ["crop","rai","waterHrs","everyDays"].forEach(k=>$(k).oninput=updateArea);
+  $("crop").onchange=updateArea;
+
+  $("areaToggle").onclick=()=>{$("areaBox").classList.toggle("hide");updateArea();};
+  $("applyArea").onclick=()=>{
+    const a=areaFlow(); S.emitter="open"; S.directFlow=Math.round(a.flow*10)/10; S.needP=18;
+    syncInputs(); $("needP").value=18; render();
+    alert("ใส่ปริมาณน้ำ "+f1(a.flow)+" ลบ.ม./ชม. ให้แล้ว\nอย่าลืมเลือกชนิดหัวจ่ายจริง เพื่อให้คิดแรงดันปลายทางถูกต้อง");
+  };
+  $("fitToggle").onclick=()=>{$("fitBox").classList.toggle("hide");render();};
+  document.querySelectorAll(".tabbar button").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+  $("syncBtn").onclick=syncSpec;
+  $("resetSpec").onclick=async()=>{PUMPS=DEFAULT_PUMPS.slice();specDate=SPEC_VERSION;specSource="ฝังมากับแอป";
+    await store.set("pump_spec","");specTable();render();$("syncMsg").textContent="กลับไปใช้สเปกที่ฝังมากับแอปแล้ว";};
+
+  $("saveSite").onclick=async()=>{
+    if(!lastResult||lastResult.flow<=0){alert("ยังไม่มีผลคำนวณให้บันทึก");return;}
+    const rec={code:siteCode(),date:new Date().toISOString().slice(0,10),
+      area:$("svArea").value.trim(),type:$("svType").value,outcome:$("svOutcome").value,
+      sold:$("svSold").value.startsWith("—")?"":$("svSold").value,note:$("svNote").value.trim(),
+      flow:lastResult.flow,tdh:lastResult.tdh,rec:lastResult.best?lastResult.best.id:"",
+      state:JSON.parse(JSON.stringify(S))};
+    sites.push(rec); await saveSites(); renderSites();
+    $("svNote").value=""; $("svArea").value="";
+    alert("บันทึกแล้ว รหัส "+rec.code);
+  };
+  $("exportCsv").onclick=()=>{
+    if(!sites.length){alert("ยังไม่มีข้อมูล");return;}
+    const head=["รหัส","วันที่","พื้นที่","ประเภทลูกค้า","ลบ.ม./ชม.","หัวน้ำรวม","แนะนำ","ซื้อจริง","ผล","บันทึก"];
+    const rows=sites.map(s=>[s.code,s.date,s.area,s.type,f1(s.flow),f1(s.tdh),s.rec,s.sold,s.outcome,s.note]);
+    const csv="\uFEFF"+[head].concat(rows).map(r=>r.map(x=>`"${String(x||"").replace(/"/g,'""')}"`).join(",")).join("\n");
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+    a.download="pump-sites-"+new Date().toISOString().slice(0,10)+".csv"; a.click();
+  };
+
+  // สเปกที่ซิงก์ไว้
+  try{const raw=await store.get("pump_spec");
+    if(raw){const j=JSON.parse(raw); if(j&&j.pumps&&j.pumps.length){PUMPS=j.pumps;specDate=j.updated;specSource="Google Sheet";}}
+  }catch(e){}
+
+  const setNet=()=>{const on=navigator.onLine;
+    $("netdot").className="dot"+(on?"":" off");
+    $("nettext").textContent=on?"พร้อมใช้งาน":"ออฟไลน์ — คำนวณได้ตามปกติ";};
+  window.addEventListener("online",setNet); window.addEventListener("offline",setNet); setNet();
+
+  if("serviceWorker" in navigator){ try{ navigator.serviceWorker.register("sw.js"); }catch(e){} }
+
+  syncInputs(); specTable(); render(); await loadSites();
+})();
+</script>
+</body>
+</html>

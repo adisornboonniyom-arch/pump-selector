@@ -1,0 +1,26 @@
+{
+  "name": "เลือกปั๊มน้ำ Husqvarna",
+  "short_name": "เลือกปั๊ม",
+  "description": "เครื่องมือประเมินหน้างานและเลือกรุ่นปั๊มน้ำ ใช้งานได้ตอนไม่มีสัญญาณ",
+  "lang": "th",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EDF2F2",
+  "theme_color": "#0F262E",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230F262E'/%3E%3Crect x='58' y='108' width='76' height='52' fill='%234FA8D8'/%3E%3Crect x='58' y='72' width='76' height='36' fill='%231E6E9E'/%3E%3Crect x='58' y='46' width='76' height='26' fill='%23E0A03A'/%3E%3Crect x='58' y='46' width='76' height='114' fill='none' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230F262E'/%3E%3Crect x='156' y='288' width='200' height='138' fill='%234FA8D8'/%3E%3Crect x='156' y='192' width='200' height='96' fill='%231E6E9E'/%3E%3Crect x='156' y='122' width='200' height='70' fill='%23E0A03A'/%3E%3Crect x='156' y='122' width='200' height='304' fill='none' stroke='%23fff' stroke-width='10'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
